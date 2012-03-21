@@ -1,0 +1,21 @@
+<%= form_for(@apk_bin) do |f| %>
+  <% if @apk_bin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@apk_bin.errors.count, "error") %> prohibited this apk_bin from being saved:</h2>
+
+      <ul>
+      <% @apk_bin.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :intent %><br />
+    <%= f.text_field :intent %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

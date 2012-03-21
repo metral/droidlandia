@@ -1,0 +1,23 @@
+<h1>Listing apk_bins</h1>
+
+<table>
+  <tr>
+    <th>Intent</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @apk_bins.each do |apk_bin| %>
+  <tr>
+    <td><%= apk_bin.intent %></td>
+    <td><%= link_to 'Show', apk_bin %></td>
+    <td><%= link_to 'Edit', edit_apk_bin_path(apk_bin) %></td>
+    <td><%= link_to 'Destroy', apk_bin, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Apk bin', new_apk_bin_path %>

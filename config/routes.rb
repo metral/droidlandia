@@ -1,4 +1,6 @@
 Droidlandia::Application.routes.draw do
+  resources :apk_bins
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
