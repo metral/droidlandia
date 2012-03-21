@@ -1,4 +1,4 @@
-<%= form_for(@apk_bin) do |f| %>
+<%= form_for(@apk_bin, :html => {:multipart => true}) do |f| %>
   <% if @apk_bin.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@apk_bin.errors.count, "error") %> prohibited this apk_bin from being saved:</h2>
@@ -14,6 +14,10 @@
   <div class="field">
     <%= f.label :intent %><br />
     <%= f.text_field :intent %>
+  </div>
+  <div class="field">
+    <%= f.label :apk %><br />
+    <%= f.file_field :apk %>
   </div>
   <div class="actions">
     <%= f.submit %>
