@@ -1,0 +1,3 @@
+rvm use 1.9.3@droidlandia --create
+
+rvm_make_flags="-j 8"
