@@ -40,7 +40,7 @@ class ApkBinsController < ApplicationController
   # POST /apk_bins
   # POST /apk_bins.json
   def create
-    @apk_bin = ApkBin.new(params[:apk_bin])
+    @apk_bin = ApkBin.new()
     @apk_bin.apk = params[:file] if params.has_key?(:file)
     @apk_bin.intent = params[:intent] if params.has_key?(:intent)
     @apk_bin.save!
