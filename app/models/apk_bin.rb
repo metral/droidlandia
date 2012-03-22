@@ -9,6 +9,9 @@ class ApkBin
   has_attached_file :apk
   key :apk_file_name, String
 
+  validates :intent, presence: true
+  validates :apk_file_name, presence: true
+
   timestamps!
 
 end

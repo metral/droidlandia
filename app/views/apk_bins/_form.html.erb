@@ -1,3 +1,17 @@
+<%= stylesheet_link_tag "plupload/jquery.plupload.queue/css/jquery.plupload.queue" %>
+<%= javascript_include_tag "plupload/plupload.full" %>
+<%= javascript_include_tag "plupload/jquery.plupload.queue/jquery.plupload.queue" %>
+<%= javascript_tag do %>
+    <%= render "form.js" %>
+<% end %>
+
+<div id="apk_bin_container">
+</div>
+
+<div id="uploader">
+   <p>Your browser sucks!</p> 
+</div>
+
 <%= form_for(@apk_bin, :html => {:multipart => true}) do |f| %>
   <% if @apk_bin.errors.any? %>
     <div id="error_explanation">

@@ -1,0 +1,33 @@
+<% session_key_name = Rails.application.config.session_options[:key] %>
+$(function() {
+   $("#uploader").pluploadQueue({
+    runtimes: 'html5,flash,silverlight',
+    url: '<%= apk_bins_path %>',
+    max_file_size: '50mb',
+    multiple_queues: true,
+    flash_swf_url: "/javascripts/plupload/plupload.flash.swf",  
+    silverlight_xap_url: "/javascripts/plupload/plupload.silverlight.xap",
+    multipart: true,
+    unique_names : true,
+    multipart_params: {
+      '_http_accept': 'application/javascript',
+      'authenticity_token' : '<%= form_authenticity_token %>',
+      '<%= session_key_name %>' : encodeURIComponent('<%= u cookies[session_key_name] %>'),
+      'intent': $('#apk_bin_intent').val()
+    },
+    filters: [
+      {title: "APK", extensions: "apk"}
+    ],
+    init: {
+      FileUploaded: function(up, file, info) {
+        $("#apk_bin_container").html(info["response"]);
+      } 
+    }
+  });
+
+    var uploader = $("#uploader").pluploadQueue();
+    uploader.bind('BeforeUpload', function(up, file, info) {
+        up.settings.multipart_params.intent = $('#apk_bin_intent').val()
+    });
+   
+});

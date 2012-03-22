@@ -41,15 +41,22 @@ class ApkBinsController < ApplicationController
   # POST /apk_bins.json
   def create
     @apk_bin = ApkBin.new(params[:apk_bin])
+    @apk_bin.apk = params[:file] if params.has_key?(:file)
+    @apk_bin.intent = params[:intent] if params.has_key?(:intent)
+    @apk_bin.save!
 
     respond_to do |format|
       if @apk_bin.save
+        Resque.enqueue(AdbWorker, @apk_bin.id)
         format.html { redirect_to @apk_bin, notice: 'Apk bin was successfully created.' }
         format.json { render json: @apk_bin, status: :created, location: @apk_bin }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @apk_bin.errors, status: :unprocessable_entity }
+        format.js
       end
+
     end
   end
 
