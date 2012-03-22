@@ -32,3 +32,5 @@ pickle-email-*.html
 .*.sw[a-z]
 *.un~
 Session.vim
+
+vim_session
