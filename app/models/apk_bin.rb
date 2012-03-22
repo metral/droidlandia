@@ -6,7 +6,7 @@ class ApkBin
 
   key :intent, String
 
-  has_attached_file :apk
+  has_attached_file :apk, dependent: :destroy
   key :apk_file_name, String
 
   validates :intent, presence: true
