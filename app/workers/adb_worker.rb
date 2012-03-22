@@ -1,21 +1,29 @@
 class AdbWorker
   @queue = :adb_queue 
+  
+  # Temp port used for testing
+  @ip_port = "10.2.2.12:5555"
 
   def self.perform(apk_bin_id)
+    
+    # Find the apk in the db
     apk_bin = ApkBin.find(apk_bin_id)
+
     puts "--------------------------------------------------"
-    puts "Launching apk File: #{apk_bin.apk.path}  Intent: #{apk_bin.intent}"
+    puts "Launching apk File: #{apk_bin.apk.path}  Intent: [#{apk_bin.intent}]"
 
-    adb_connect_cmd = "adb connect " + "10.2.2.12:5555"
-    result = %x(#{adb_connect_cmd})
-    puts "Connect Results: " + result
+    r = %x(adb connect #{@ip_port})
+    puts "Connect Results: #{r}"
 
-    adb_install_cmd = "adb install " + apk_bin.apk.path
-    result = %x(#{adb_install_cmd})
-    puts "Install Results: " + result
+    r = %x(adb install #{apk_bin.apk.path})
+    puts "Install Results: #{r}"
+    
+    r = %x(adb shell am start -a android.intent.action.MAIN -n #{apk_bin.intent})
+    puts "Start result: #{r}"
 
-    adb_disconnect_cmd = "adb disconnect " + "10.2.2.12:5555"
-    result = %x(#{adb_disconnect_cmd})
-    puts "Disconnect Results: " + result
+    r = %x(adb disconnect #{@ip_port})
+    puts "Disconnect Results: #{r}"
+
+    puts "Done..."
   end
 end
