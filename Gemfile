@@ -30,6 +30,7 @@ gem 'paperclip'
 # mongo
 gem 'mongo_mapper'
 gem 'bson_ext'
+gem 'resque', :require => "resque/server"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
