@@ -1,13 +1,16 @@
 <% session_key_name = Rails.application.config.session_options[:key] %>
 $(function() {
-   $("#uploader").pluploadQueue({
+   var uploader = new plupload.Uploader({
     runtimes: 'html5,flash,silverlight',
     url: '<%= apk_bins_path %>',
     max_file_size: '50mb',
-    multiple_queues: true,
+    browse_button: "browse-button",
     flash_swf_url: "/javascripts/plupload/plupload.flash.swf",  
     silverlight_xap_url: "/javascripts/plupload/plupload.silverlight.xap",
+    autostart: true,
     multipart: true,
+    container: "apk-container",
+    drop_element: "apk-drop-zone",
     unique_names : true,
     multipart_params: {
       '_http_accept': 'application/javascript',
@@ -17,17 +20,69 @@ $(function() {
     },
     filters: [
       {title: "APK", extensions: "apk"}
-    ],
-    init: {
-      FileUploaded: function(up, file, info) {
-        $("#apk_bin_container").html(info["response"]);
-      } 
-    }
+    ]
   });
 
-    var uploader = $("#uploader").pluploadQueue();
+
+    var dropzone = $("#apk-drop-zone");
+    var $body = $("body");
+    $body.bind("dragenter", function(e){ 
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    $body.bind("dragleave", function(e){ 
+    });
+    
+    $body.bind("dragover", function(e){
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    $body.bind("drop", function(e){
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    dropzone.bind("dragenter", function(e){
+        e.stopPropagation();
+        e.preventDefault();
+    });
+    dropzone.bind("dragleave", function(e){  });
+    dropzone.bind("dragover", function(e){
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    $("#upload-progress-ctr").hide();
+    $("#upload-result").hide();
+    uploader.bind('Init', function(up, params) {
+        $("#browse-button").hide();
+    });
+    uploader.init();
+    
+    uploader.bind('FilesAdded', function(up, files) {
+        $("#apk-drop-zone").hide();
+        uploader.start();
+    });
+
+    uploader.bind('Error', function(up, err) {
+        up.refresh();
+    });
+
     uploader.bind('BeforeUpload', function(up, file, info) {
+        $("#upload-progress-ctr").show();
         up.settings.multipart_params.intent = $('#apk_bin_intent').val()
+    });
+    
+    uploader.bind('UploadProgress', function(up, file) {
+        $('#upload-progress').css('width',file.percent + '%');
+    });
+
+    uploader.bind('FileUploaded', function(up, file) {
+        $('#upload-progress-ctr').hide();
+        $('#upload-result').html("<h1>Shit son you a bad ass</h1>");
+        $('#upload-result').fadeIn('slow'); 
     });
    
 });

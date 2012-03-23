@@ -4,15 +4,53 @@
 <%= javascript_tag do %>
     <%= render "form.js" %>
 <% end %>
+<style>
+    #apk-drop-zone {
+        ddisplay: block;
+        text-align: center;
+        padding: 1em 0;
+        margin: 1em 0;
+        color: #CCC;
+        border: 2px dashed #C5C5C5;
+        height: 200px;
+        border-radius: 15px;
+        vertical-align: middle;
+        line-height: 8em;
+        background: url("/assets/android_skateboard_small.gif") center top no-repeat;
+        
+    }
+</style>
 
-<div id="apk_bin_container">
+
+<div class="row">
+    <div class="span12">
+        <form class="form-inline">
+            <fieldset>
+                <legend>Droidlandia Sweetness</legend>
+                <div class="control-group">
+                    <div id="apk-container" class="controls">
+
+                        <div id="apk-drop-zone">
+                            <h1 style="vertical-align: middle;">Drop APK Here</h1>
+                        </div>
+                        <div id="upload-progress-ctr" class="progress progress-striped active">
+                            <div id="upload-progress" class="bar" style="width: 0%;"></div>
+                        </div>
+                        <div id="upload-result"></div>
+
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button id="browse-button" type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </div>
 
-<div id="uploader">
-   <p>Your browser sucks!</p> 
-</div>
-
-<%= form_for(@apk_bin, :html => {:multipart => true}) do |f| %>
+<%
+=begin %>
+<% form_for(@apk_bin, :html => {:multipart => true}) do |f| %>
   <% if @apk_bin.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@apk_bin.errors.count, "error") %> prohibited this apk_bin from being saved:</h2>
@@ -37,3 +75,5 @@
     <%= f.submit %>
   </div>
 <% end %>
+<%
+=end %>

@@ -42,11 +42,14 @@ class ApkBinsController < ApplicationController
   def create
     @apk_bin = ApkBin.new()
     @apk_bin.apk = params[:file] if params.has_key?(:file)
-    @apk_bin.intent = params[:intent] if params.has_key?(:intent)
+    @apk_bin.intent = "fuck off" #params[:intent] if params.has_key?(:intent)
     @apk_bin.save!
+
+    puts "Saving"
 
     respond_to do |format|
       if @apk_bin.save
+        puts "Putting into queue"
         Resque.enqueue(AdbWorker, @apk_bin.id)
         format.html { redirect_to @apk_bin, notice: 'Apk bin was successfully created.' }
         format.json { render json: @apk_bin, status: :created, location: @apk_bin }
