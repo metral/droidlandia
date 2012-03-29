@@ -26,7 +26,6 @@ gem 'jquery-rails'
 # Custom
 gem 'thin'
 gem 'paperclip'
-gem 'will_paginate'
 
 # mongo
 gem 'mongo_mapper'
