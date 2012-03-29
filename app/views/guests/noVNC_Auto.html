@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>noVNC</title>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" href="novnc/plain.css" title="plain">
+    <script> var INCLUDE_URI = "novnc/"; </script>
+    <script src="novnc/vnc.js"></script>
+  </head>
+
+  <body style="margin: 0px;">
+    <div id="VNC_screen">
+      <div id="VNC_status_bar" class="VNC_status_bar" style="margin-top: 0px;">
+        <table border=0 width="100%"><tr>
+            <td width="1%"><div id="VNC_buttons">
+                <input type=button value="Connect"
+                id="connect">
+            </div></td>
+            <td width="1%"><div id="VNC_buttons">
+                <input type=button value="Disconnect"
+                id="disconnect">
+            </div></td>
+            <td width="1%"><div id="VNC_buttons">
+                <input type=button value="Send CtrlAltDel"
+                id="sendCtrlAltDelButton">
+            </div></td>
+            <td><div id="VNC_status">Loading</div></td>
+        </tr></table>
+      </div>
+      <canvas id="VNC_canvas" width="640px" height="20px">
+      Canvas not supported.
+      </canvas>
+    </div>
+
+    <script>
+      "use strict";
+
+      var rfb;
+      var host, port, password,  con_port;
+
+      function passwordRequired(rfb) {
+        var msg;
+        msg = '<form onsubmit="return setPassword();"';
+          msg += '  style="margin-bottom: 0px">';
+          msg += 'Password Required: ';
+          msg += '<input type=password size=10 id="password_input" class="VNC_status">';
+          msg += '<\/form>';
+          $D('VNC_status_bar').setAttribute("class", "VNC_status_warn");
+          $D('VNC_status').innerHTML = msg;
+        }
+        function setPassword() {
+          rfb.sendPassword($D('password_input').value);
+          return false;
+        }
+        function sendCtrlAltDel() {
+          rfb.sendCtrlAltDel();
+          return false;
+        }
+        function updateState(rfb, state, oldstate, msg) {
+          var s, sb, cad, c, d, level;
+          s = $D('VNC_status');
+          sb = $D('VNC_status_bar');
+          cad = $D('sendCtrlAltDelButton');
+          c = $D('connect');
+          d = $D('disconnect');
+          switch (state) {
+            case 'failed':       level = "error";  break;
+            case 'fatal':        level = "error";  break;
+            case 'normal':       level = "normal"; break;
+            case 'disconnected': level = "normal"; break;
+            case 'loaded':       level = "normal"; break;
+            default:             level = "warn";   break;
+          }
+
+          if (state === "normal") { 
+            cad.disabled = false;
+            d.disabled = false;
+            c.disabled = true;
+          }
+          else { 
+            cad.disabled = true;
+            d.disabled = true;
+            c.disabled = false;
+          }
+
+          if (typeof(msg) !== 'undefined') {
+            sb.setAttribute("class", "VNC_status_" + level);
+            s.innerHTML = msg;
+          }
+        }
+        function connect() {
+          alert("Attempting to conenct to: " + host + ":"+port+" con_port: "+con_port);
+          rfb.connect(host,port,password,con_port);
+        }
+        function disconnect() {
+          rfb.disconnect();
+        }
+
+        window.onload = function () {
+          host = '192.168.10.51', port = 6080, password, con_port;
+
+          $D('sendCtrlAltDelButton').onclick = sendCtrlAltDel;
+          $D('connect').onclick = connect;
+          $D('disconnect').onclick = disconnect;
+          //document.title = unescape(WebUtil.getQueryVar('title', 'noVNC'));
+          //host = WebUtil.getQueryVar('host', null);
+          //port = WebUtil.getQueryVar('port', null);
+          con_port = "?port=" + WebUtil.getQueryVar('con_port', null);
+          //password = WebUtil.getQueryVar('password', '');
+          if ((!host) || (!port)) {
+            updateState('failed',
+            "Must specify host and port in URL");
+            return;
+          }
+
+          rfb = new RFB({'target':       $D('VNC_canvas'),
+            'encrypt':      WebUtil.getQueryVar('encrypt', false),
+            'true_color':   WebUtil.getQueryVar('true_color', true),
+            'local_cursor': WebUtil.getQueryVar('cursor', true),
+            'shared':       WebUtil.getQueryVar('shared', true),
+            'updateState':  updateState,
+            'onPasswordRequired':  passwordRequired});
+        };
+      </script>
+
+    </body>
+  </html>
+

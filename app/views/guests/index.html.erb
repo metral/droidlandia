@@ -1,0 +1,24 @@
+<h1>Listing guests</h1>
+
+<br>
+
+  <table class="table table-striped table-bordered">
+      <thead>
+          <tr>
+            <th>Hostname</th>
+            <th>Status</th>
+          </tr>
+      </thead>
+      <tbody>
+        <% @guests.each do |guest| %>
+          <tr>
+            <td><%= link_to guest.hostname, guest %></td>
+            <td><%= guest.status %></td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+
+</br>
+
+<%= link_to 'New Guest', new_guest_path %>
