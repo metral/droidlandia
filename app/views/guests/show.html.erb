@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'open_vnc_window' %>
+
 <p id="notice"><%= notice %></p>
 
 <h1><%= @guest.hostname %></h1>
@@ -25,7 +27,14 @@
             <td><%= @guest.os %></td>
             <td><%= @guest.ram %></td>
             <td><%= @guest.vmid %></td>
-            <td><%= @guest.vnc_port %></td>
+
+            <!-- TODO: don't hardcode the server ip -->
+
+            <script>
+              var novnc_server_url = "http://134.252.26.170:6080/vnc_auto.html?remoteprt="
+              var vnc_port = <%= @guest.vnc_port %>
+            </script>
+            <td><button type="button" class="btn btn-primary" id="open_vnc_window_button"><%= @guest.vnc_port %></button></td>
           </tr>
       </tbody>
   </table>
