@@ -1,9 +1,15 @@
 Droidlandia::Application.routes.draw do
+  resources :guests
+
+  resources :hosts
+
   resources :apk_bins
 
   mount Resque::Server, :at => "/resque"
   # The priority is based upon order of creation:
   # first created -> highest priority.
+
+  match 'vnc' => 'guests#vnc'
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
