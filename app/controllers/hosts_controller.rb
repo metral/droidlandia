@@ -2,7 +2,8 @@ class HostsController < ApplicationController
   # GET /hosts
   # GET /hosts.json
   def index
-    @hosts = Host.all
+    #@hosts = Host.all
+    @hosts = Host.page params[:page]
 
     respond_to do |format|
       format.html # index.html.erb

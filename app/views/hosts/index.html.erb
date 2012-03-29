@@ -12,7 +12,7 @@
       <tbody>
         <% @hosts.each do |host| %>
           <tr>
-            <td><%= host.hostname %></td>
+            <td><%= link_to host.hostname, host %></td>
             <td><%= host.os %></td>
           </tr>
         <% end %>
@@ -22,3 +22,5 @@
 </br>
 
 <%= link_to 'New Host', new_host_path %>
+
+<%= paginate @hosts %>

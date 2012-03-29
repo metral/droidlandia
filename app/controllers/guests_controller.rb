@@ -2,7 +2,8 @@ class GuestsController < ApplicationController
   # GET /guests
   # GET /guests.json
   def index
-    @guests = Guest.all
+    #@guests = Guest.all
+    @guests = Guest.page params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
