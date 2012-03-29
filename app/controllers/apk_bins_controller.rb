@@ -42,7 +42,7 @@ class ApkBinsController < ApplicationController
   def create
     @apk_bin = ApkBin.new()
     @apk_bin.apk = params[:file] if params.has_key?(:file)
-    @apk_bin.intent = "fuck off" #params[:intent] if params.has_key?(:intent)
+    @apk_bin.intent = "foobar" #params[:intent] if params.has_key?(:intent)
     @apk_bin.save!
 
     puts "Saving"
