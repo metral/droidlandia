@@ -1,0 +1,3 @@
+[submodule "lib/novnc"]
+	path = lib/novnc
+	url = git@merlock.ran.sandia.gov:megadroid/novnc.git
