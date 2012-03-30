@@ -34,3 +34,4 @@ pickle-email-*.html
 Session.vim
 
 vim_session
+tmux*
