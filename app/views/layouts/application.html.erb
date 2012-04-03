@@ -21,9 +21,10 @@
                 <a class="brand" href="/">droidlandia</a>
                 <div class="nav-collapse">
                     <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Jobs</a></li>
-                        <li><a href="/resque">resque</a></li>
+                        <li class="<%= 'active' if params[:controller] == 'apk_bins' %>"><a href="/apk_bins">APK Bins</a></li>
+                        <li class="<%= 'active' if params[:controller] == 'hosts' %>"><a href="/hosts">Hosts</a></li>
+                        <li class="<%= 'active' if params[:controller] == 'guests' %>"><a href="/guests">Guests</a></li>
+                        <li class="<%= 'active' if params[:controller] == 'resque' %>"><a href="/resque">Resque</a></li>
                     </ul>
                 </div>
             </div>

@@ -1,0 +1,72 @@
+<%= javascript_include_tag 'open_vnc_window' %>
+
+<p id="notice"><%= notice %></p>
+
+<h1><%= @guest.hostname %></h1>
+
+<br>
+
+  <table class="table table-striped table-bordered">
+      <h3>Vitals</h3>
+      <thead>
+          <tr>
+            <th>Status</th>
+            <th>Bytes Received</th>
+            <th>Bytes Sent</th>
+            <th>OS</th>
+            <th>RAM</th>
+            <th>VM ID</th>
+            <th>VNC Port</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td><%= @guest.status %></td>
+            <td><%= @guest.bytes_rcvd %></td>
+            <td><%= @guest.bytes_sent %></td>
+            <td><%= @guest.os %></td>
+            <td><%= @guest.ram %></td>
+            <td><%= @guest.vmid %></td>
+
+            <!-- TODO: don't hardcode the server ip -->
+
+            <script>
+              var novnc_server_url = "http://134.252.32.73:6080/vnc_auto.html?remoteprt="
+              var vnc_port = <%= @guest.vnc_port %>
+            </script>
+            <td><button type="button" class="btn btn-primary" id="open_vnc_window_button"><%= @guest.vnc_port %></button></td>
+          </tr>
+      </tbody>
+  </table>
+
+  <table class="table table-striped table-bordered">
+      <h3>Interfaces</h3>
+      <thead>
+          <tr>
+            <th>Name</th>
+            <th>IP</th>
+            <th>MAC</th>
+            <th>Netmask</th>
+            <th>Gateway</th>
+            <th>Subnet</th>
+          </tr>
+      </thead>
+      <tbody>
+        <% @guest.interfaces.each do |interface| %>
+          <tr>
+            <td><%= interface.name %></td>
+            <td><%= interface.ip %></td>
+            <td><%= interface.mac %></td>
+            <td><%= interface.netmask %></td>
+            <td><%= interface.gateway %></td>
+            <td><%= interface.subnet %></td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+
+</br>
+
+
+<%= link_to 'Edit', edit_guest_path(@guest) %> |
+<%= link_to 'Back', guests_path %>

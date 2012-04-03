@@ -26,6 +26,7 @@ gem 'jquery-rails'
 # Custom
 gem 'thin'
 gem 'paperclip'
+gem 'kaminari'
 
 # mongo
 gem 'mongo_mapper'
