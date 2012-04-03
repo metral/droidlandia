@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Droidlandia</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= stylesheet_link_tag "bootstrap/bootstrap.min", :media => "all" %>
-  <%= stylesheet_link_tag "bootstrap/bootstrap-responsive.min", :media => "all" %>
-  <%= javascript_include_tag "bootstrap/bootstrap.min" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Droidlandia</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag "bootstrap/bootstrap.min", :media => "all" %>
+    <%= stylesheet_link_tag "bootstrap/bootstrap-responsive.min", :media => "all" %>
+    <%= javascript_include_tag "bootstrap/bootstrap.min" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
     <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="/">droidlandia</a>
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li class="<%= 'active' if params[:controller] == 'apk_bins' %>"><a href="/apk_bins">APK Bins</a></li>
-                        <li class="<%= 'active' if params[:controller] == 'hosts' %>"><a href="/hosts">Hosts</a></li>
-                        <li class="<%= 'active' if params[:controller] == 'guests' %>"><a href="/guests">Guests</a></li>
-                        <li class="<%= 'active' if params[:controller] == 'resque' %>"><a href="/resque">Resque</a></li>
-                    </ul>
-                </div>
-            </div>
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">droidlandia</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="<%= 'active' if params[:controller] == 'apk_bins' %>"><a href="/apk_bins">APK Bins</a></li>
+              <li class="<%= 'active' if params[:controller] == 'hosts' %>"><a href="/hosts">Hosts</a></li>
+              <li class="<%= 'active' if params[:controller] == 'guests' %>"><a href="/guests">Guests</a></li>
+              <li class="<%= 'active' if params[:controller] == 'resque' %>"><a href="/resque">Resque</a></li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
+
     <div class="container">
-        <%= yield %>
+      <%= yield %>
     </div>
-</body>
+  </body>
 </html>
