@@ -35,3 +35,5 @@ Session.vim
 
 vim_session
 tmux*
+
+*.bak
