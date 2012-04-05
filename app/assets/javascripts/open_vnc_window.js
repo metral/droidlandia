@@ -1,6 +1,4 @@
-$(function() {                                                                                                                                                                       
-    var vnc_path = novnc_server_url + vnc_port
-
+$(function() {
     $('#open_vnc_window_button').click(function() {
       // open window as a pop-up window
       new_window = window.open(vnc_path, 'vnc_window', 'height=800,width=1024');
