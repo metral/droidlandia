@@ -10,7 +10,7 @@
 
 <% @apk_bins.each do |apk_bin| %>
   <tr>
-    <td><%= apk_bin.id %></td>
+    <td><%= apk_bin.apk_file_name %></td>
     <td><%= link_to 'Show', apk_bin %></td>
     <td><%= link_to 'Edit', edit_apk_bin_path(apk_bin) %></td>
     <td><%= link_to 'Destroy', apk_bin, confirm: 'Are you sure?', method: :delete %></td>
